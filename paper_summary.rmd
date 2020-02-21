@@ -5,4 +5,6 @@ date: "2/20/2020"
 output: html_document
 ---
 
+Studies have consistently found low rates of voter turnout among minority groups across elections and jurisdictions. The only exception to this is when a minority candidate is on the ballot or in situations where minority voters could elect a "co-ethnic." In these cases, voter participation by minorities actually appeared to increase. Bernard Fraga's study examines co-ethnic candidacy and jursidiction racial/ethnnic composition as determinants of voter turnout. He evaluates several theories of minority political participation, including the impact of minority candidates or the characteristics of places they're from on minority voter turnout. He proposes and derives a competing hypothesis that suggests existing work about the impact of ethnoracial political context on voter turnout is likely to be biased because one cannot discern the immpact of candidate race/ethnicity from factors associated with the racial and ethnic makeup of a jurisdiction's electorate. His empirical analysis dispels candidate-centered explanations for the relationship between the ethnicity of office seekers and turnout and instead demonstrates the principal role of jurisdiction racial/ethnicity composition.
 
+*Repository* https://github.com/amanda-y-su/race-voter-turnout
