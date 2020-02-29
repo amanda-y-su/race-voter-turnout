@@ -13,6 +13,8 @@ link_citations: true
 knitr::opts_chunk$set(echo = TRUE)
 knitr::write_bib(c("congress"), "citation.bib", width = 60)
 
+# load relevant libraries 
+
 library(gtable)
 library(stargazer)
 library(tidyverse)
@@ -20,34 +22,60 @@ library(gt)
 
 ```
 
-This is my pdf document. Please refer to the Github repository of my final project for further information.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @congress
+This is my pdf document for my milestone 4 for GOV 1006. Visit the Github repository of my final project for more information.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @congress
 
 # gt Table of Random Happiness Data
 
 ```{r fake_data, echo=FALSE}
 
+# generate eight numbers for gender variable where the probability of the number being 1 is 50 percent and the 
+# probability of it being 0 is 50 percent
+
 gender <- rbinom(8, 1, .5)
+
+# generate eight numbers for voter turnout variable where the probability of the number being 1 is 50 percent and the 
+# probability of it being 0 is 50 percent
+
 vote <- rbinom(8, 1, .5)
+
+# create tibble with the two variables (gender and vote) as columns
 data = tibble(gender, vote)
+
+# create a gt table using the data from the tibble
 
 table <- data %>% 
   gt() %>%
+  
+  # add headers and subtitles 
+  
   tab_header(
     title = "Voter Turnout",
     subtitle = "Measured by Gender"
   ) %>%
-  fmt_number(columns = vars(vote)
-             ) %>%
-  tab_footnote(footnote = "0 = didn't vote, 1 = voted)", locations = cells_column_labels(columns = vars(vote))) %>%
-  tab_footnote(footnote = "0 = Male, 1 = Female", locations = cells_column_labels(columns = vars(gender))) %>%
+  
+  # add footnotes at the bottom of the table to explain what the levels of each variable mean
+  
+  tab_footnote(footnote = "0 = didn't vote, 1 = voted)", 
+               locations = cells_column_labels(columns = vars(vote))) %>%
+  tab_footnote(footnote = "0 = Male, 1 = Female", 
+               locations = cells_column_labels(columns = vars(gender))) %>%
+  
+  # add labels to the columns of the gt table 
+  
   cols_label(
     gender = "Gender",
     vote = "Voter Turnout",
     
+    # center align the values in the cells for aesthetic purposes
+    
   ) %>%
   cols_align("center")
 
+# display the table 
+
 table
+
+# create a linear regression model using the tibble data to explain voter turnout as a function of gender
 
 model <- lm(vote ~ gender, data = data )
 
@@ -56,6 +84,9 @@ model <- lm(vote ~ gender, data = data )
 # Regression Table Explaining Voter Turnout as a Function of Gender 
 
 ```{r regression-table, results="asis", echo=FALSE}
+
+# use the stargazer package to create a regression table that displays the values generated through the
+# linear model explaining voter turnout as a function of gender
 
 stargazer(model, header = FALSE,
           dep.var.labels=c("vote"),
