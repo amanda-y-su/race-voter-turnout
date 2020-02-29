@@ -22,7 +22,7 @@ library(gt)
 
 ```
 
-This is my pdf document for my milestone 4 for GOV 1006. Visit the Github repository of my final project for more information.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @congress
+This is my pdf document for my milestone 4 for GOV 1006. Visit the Github repository of my final project for more information.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @congress.
 
 # gt Table of Random Happiness Data
 
