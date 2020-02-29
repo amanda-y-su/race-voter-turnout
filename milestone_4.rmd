@@ -1,0 +1,66 @@
+---
+title: "Milestone 4"
+author: "Amanda Su"
+date: "2/28/2020"
+output: bookdown::pdf_document2
+bibliography: citation.bib
+link_citations: true
+---
+
+# Intro
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::write_bib(c("congress"), "citation.bib", width = 60)
+
+library(gtable)
+library(stargazer)
+library(tidyverse)
+library(gt)
+
+```
+
+This is my pdf document. Please refer to the Github repository of my final project for further information.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @congress
+
+# gt Table of Random Happiness Data
+
+```{r fake_data, echo=FALSE}
+
+gender <- rbinom(8, 1, .5)
+vote <- rbinom(8, 1, .5)
+data = tibble(gender, vote)
+
+table <- data %>% 
+  gt() %>%
+  tab_header(
+    title = "Voter Turnout",
+    subtitle = "Measured by Gender"
+  ) %>%
+  fmt_number(columns = vars(vote)
+             ) %>%
+  tab_footnote(footnote = "0 = didn't vote, 1 = voted)", locations = cells_column_labels(columns = vars(vote))) %>%
+  tab_footnote(footnote = "0 = Male, 1 = Female", locations = cells_column_labels(columns = vars(gender))) %>%
+  cols_label(
+    gender = "Gender",
+    vote = "Voter Turnout",
+    
+  ) %>%
+  cols_align("center")
+
+table
+
+model <- lm(vote ~ gender, data = data )
+
+```
+
+# Regression Table Explaining Voter Turnout as a Function of Gender 
+
+```{r regression-table, results="asis", echo=FALSE}
+
+stargazer(model, header = FALSE,
+          dep.var.labels=c("vote"),
+          covariate.labels=c("gender"))
+
+```
+
+# References
