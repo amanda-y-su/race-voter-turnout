@@ -1,0 +1,53 @@
+---
+title: "Milestone 5"
+author: "Amanda Su"
+date: "3/29/2020"
+output: bookdown::pdf_document2
+bibliography: citation.bib
+link_citations: true
+---
+
+# Intro 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::write_bib(c("candidates"), "citation.bib", width = 60)
+
+library(tidyverse)
+library(janitor)
+library(rstanarm)
+```
+
+This is my pdf document for my milestone 5 for GOV 1006. All analysis for this paper is available at my Github repository.^[[Github repository](https://github.com/amanda-y-su/race-voter-turnout)]. I make use of @candidates, @mobilization, @votes, @groups, and @ethnic.
+
+# Overview of Replication Paper 
+
+A 300 – 500 word overview of your replication paper. What analysis did they run? What did they conclude?
+
+Studies have consistently found low rates of voter turnout among minority groups across elections and jurisdictions. The only exception to this is when a minority candidate is on the ballot or in situations where minority voters could elect a "co-ethnic." In these cases, voter participation by minorities actually appeared to increase. Bernard Fraga's study examines co-ethnic candidacy and jursidiction racial/ethnnic composition as determinants of voter turnout. He evaluates several theories of minority political participation, including the impact of minority candidates or the characteristics of places they're from on minority voter turnout. He proposes and derives a competing hypothesis that suggests existing work about the impact of ethnoracial political context on voter turnout is likely to be biased because one cannot discern the immpact of candidate race/ethnicity from factors associated with the racial and ethnic makeup of a jurisdiction's electorate. His empirical analysis dispels candidate-centered explanations for the relationship between the ethnicity of office seekers and turnout and instead demonstrates the principal role of jurisdiction racial/ethnicity composition.
+
+
+# Graphic
+
+```{r, echo = FALSE}
+load('Fraga2015_MainData.RData')
+
+asian_general <- AsiandataG %>%
+  clean_names()
+
+graphic <- asian_general %>%
+  group_by(candidate) %>%
+  ggplot(mapping = aes(x = cvap, y = raw_turn_asian_g, 
+                       group = factor(candidate))) +
+  geom_smooth(se = FALSE, method = "lm", 
+              aes(color = factor(candidate))) +
+  labs(title = "Asian Voter Turnout", 
+         x = "Asian Citizen Voting-Age Population", 
+         y = "Asian Voter Turnout",
+       color = "Co-Ethnic Candidate\n(0 = No, 1 = Yes)", 
+       caption = "Data obtained from 'Candidates or Districts? Reevaluating the Role of Race in Voter Turnout'\nby Bernard L. Fraga") + theme(plot.caption = element_text(size = 8))
+
+graphic
+
+```
+
+# References
